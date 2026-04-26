@@ -5,12 +5,22 @@ export default defineConfig({
   test: {
     globals: true,
     environment: "node",
-    // globalSetup runs before any worker starts
-    // This guarantees process.env is set before any module loads
     globalSetup: ["./tests/globalSetup.ts"],
-    // setupFiles still runs per-file for mocks like vi.spyOn
     setupFiles: ["./tests/setup.ts"],
     include: ["tests/**/*.test.ts"],
+
+    /**
+     * hookTimeout: 120000 (2 minutes)
+     * Covers the MongoMemoryServer binary download on first run.
+     * After the binary is cached this completes in < 2 seconds.
+     *
+     * testTimeout: 30000 (30 seconds)
+     * Individual tests should never take this long.
+     * But model tests with DB operations need more than 5s default.
+     */
+    hookTimeout: 120000,
+    testTimeout: 30000,
+
     coverage: {
       provider: "v8",
       reporter: ["text", "html"],
