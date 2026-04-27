@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Why inject styles into Shadow DOM?
+ * Shadow DOM isolates our CSS completely from the host site.
+ * Host site's CSS cannot leak in, our CSS cannot leak out.
+ * This is the gold standard for embedded widgets.
+ */
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
