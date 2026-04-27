@@ -36,3 +36,15 @@ export interface StreamChunk {
   done: boolean;
   intentLevel?: IntentLevel;
 }
+
+// Re-export RagChunk for use in tests and other packages
+export interface RagChunk {
+  id: string;
+  content: string;
+  score: number;
+  metadata: {
+    url: string;
+    title: string;
+    section: string;
+  };
+}

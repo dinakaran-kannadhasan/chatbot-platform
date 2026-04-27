@@ -8,19 +8,8 @@ export default defineConfig({
     globalSetup: ["./tests/globalSetup.ts"],
     setupFiles: ["./tests/setup.ts"],
     include: ["tests/**/*.test.ts"],
-
-    /**
-     * hookTimeout: 120000 (2 minutes)
-     * Covers the MongoMemoryServer binary download on first run.
-     * After the binary is cached this completes in < 2 seconds.
-     *
-     * testTimeout: 30000 (30 seconds)
-     * Individual tests should never take this long.
-     * But model tests with DB operations need more than 5s default.
-     */
     hookTimeout: 120000,
     testTimeout: 30000,
-
     coverage: {
       provider: "v8",
       reporter: ["text", "html"],
@@ -28,9 +17,15 @@ export default defineConfig({
   },
   resolve: {
     alias: {
+      /**
+       * Point to source .ts file not compiled dist.
+       * Vitest uses Vite which handles TypeScript natively —
+       * no need to compile first. This also means changes to
+       * types are picked up immediately without rebuilding.
+       */
       "@chatbot/types": path.resolve(
         __dirname,
-        "./packages/types/dist/index.js",
+        "./packages/types/src/index.ts",
       ),
     },
   },

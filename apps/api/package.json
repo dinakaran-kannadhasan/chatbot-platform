@@ -10,7 +10,9 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.91.1",
     "@chatbot/types": "workspace:*",
+    "@pinecone-database/pinecone": "^7.2.0",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
