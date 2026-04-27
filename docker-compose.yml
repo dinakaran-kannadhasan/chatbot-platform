@@ -1,0 +1,95 @@
+version: "3.9"
+
+# Why docker-compose for local dev?
+# Instead of running MongoDB, Redis, and your app separately,
+# one command starts everything in the right order with
+# the right environment variables and network connections.
+# docker-compose up = entire stack running in 30 seconds.
+
+services:
+  # ─── Infrastructure ──────────────────────────────────────────────────────────
+
+  mongodb:
+    image: mongo:7
+    container_name: chatbot-mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: devpassword
+      MONGO_INITDB_DATABASE: chatbot-dev
+    volumes:
+      # Named volume — data persists between container restarts
+      - mongodb_data:/data/db
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: chatbot-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    # Persist Redis data to disk — survives container restarts
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ─── Applications ─────────────────────────────────────────────────────────────
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+      target: production
+    container_name: chatbot-api
+    restart: unless-stopped
+    ports:
+      - "4000:4000"
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      # Uses service names as hostnames — Docker DNS resolves them
+      MONGODB_URI: mongodb://admin:devpassword@mongodb:27017/chatbot-dev?authSource=admin
+      REDIS_URL: redis://redis:6379
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+      JWT_SECRET: ${JWT_SECRET}
+      MARKETO_BASE_URL: ${MARKETO_BASE_URL}
+      MARKETO_CLIENT_ID: ${MARKETO_CLIENT_ID}
+      MARKETO_CLIENT_SECRET: ${MARKETO_CLIENT_SECRET}
+      PINECONE_API_KEY: ${PINECONE_API_KEY}
+      PINECONE_INDEX: ${PINECONE_INDEX:-chatbot-knowledge}
+      FRONTEND_URL: http://localhost:3000
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      target: production
+    container_name: chatbot-web
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_API_URL: http://api:4000
+    depends_on:
+      - api
+
+volumes:
+  mongodb_data:
+  redis_data:

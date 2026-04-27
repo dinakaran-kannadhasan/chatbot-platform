@@ -1,0 +1,32 @@
+# Dependencies — reinstalled inside Docker
+node_modules
+**/node_modules
+
+# Build outputs — rebuilt inside Docker
+**/dist
+**/.next
+**/build
+
+# Test files — not needed in production
+tests
+**/*.test.ts
+**/*.spec.ts
+coverage
+
+# Environment files — injected via Docker secrets or env vars
+.env
+.env.local
+**/.env
+
+# Git and editor files
+.git
+.gitignore
+.turbo
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
