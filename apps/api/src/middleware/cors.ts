@@ -25,27 +25,23 @@ const ALWAYS_ALLOWED = [
 
 export const corsMiddleware = cors({
   origin: (origin, callback) => {
-    /**
-     * origin is undefined for:
-     * - Server-to-server requests (Postman, curl)
-     * - Same-origin requests
-     * Allow these without restriction.
-     */
     if (!origin) {
       callback(null, true);
       return;
     }
 
-    if (ALWAYS_ALLOWED.includes(origin)) {
+    // Read dynamically on each request — picks up env changes
+    const allowedOrigins = [
+      env.FRONTEND_URL,
+      "http://localhost:3000",
+      "http://localhost:3001",
+    ];
+
+    if (allowedOrigins.includes(origin)) {
       callback(null, true);
       return;
     }
 
-    /**
-     * TODO Phase 4: Query the Tenant collection to check
-     * if this origin matches a registered tenant domain.
-     * For now, allow all origins in development.
-     */
     if (env.NODE_ENV === "development") {
       callback(null, true);
       return;
@@ -53,13 +49,7 @@ export const corsMiddleware = cors({
 
     callback(new Error(`CORS: Origin ${origin} not allowed`));
   },
-
-  // Allow cookies and Authorization headers
   credentials: true,
-
-  // Which HTTP methods the widget/frontend can use
   methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
-
-  // Which headers the client can send
   allowedHeaders: ["Content-Type", "Authorization", "X-Website-Id"],
 });
