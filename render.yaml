@@ -4,6 +4,8 @@ services:
   - type: web
     name: chatbot-api
     runtime: docker
+    buildCommand: pnpm install --frozen-lockfile && pnpm run build
+    startCommand: node apps/api/dist/server.js
     dockerfilePath: ./apps/api/Dockerfile
     dockerContext: .
     branch: main

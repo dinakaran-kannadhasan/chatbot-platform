@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "turbo run dev",
-    "build": "turbo run build",
+    "build": "pnpm --filter @chatbot/types build && turbo run build --filter=!@chatbot/types",
     "test": "vitest",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
