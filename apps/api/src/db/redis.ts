@@ -10,18 +10,12 @@ import { env } from "../config/env.js";
  */
 const isTest = env.NODE_ENV === "test";
 
-export const redis = new Redis(env.REDIS_URL, {
-  maxRetriesPerRequest: isTest ? 0 : 3,
-  enableReadyCheck: !isTest,
-  lazyConnect: isTest,
-
-  retryStrategy(times: number) {
-    // In tests, never retry — fail immediately
-    if (isTest) return null;
-    const maxRetryDelay = 5000;
-    const delay = Math.min(times * 200, maxRetryDelay);
-    console.warn(`Redis retry attempt ${times}, waiting ${delay}ms`);
-    return delay;
+const redis = new Redis(process.env.REDIS_URL!, {
+  lazyConnect: process.env.NODE_ENV === "test",
+  maxRetriesPerRequest: null, // ← add this
+  enableReadyCheck: false, // ← add this for Upstash TLS
+  retryStrategy(times) {
+    return Math.min(times * 200, 5000);
   },
 });
 
