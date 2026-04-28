@@ -9,7 +9,9 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,json,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,json,md}\"",
+    "create-tenant": "dotenv -e .env.local -- tsx scripts/create-tenant.ts",
+    "seed": "dotenv -e .env.local -- tsx scripts/seed-knowledge.ts"
   },
   "devDependencies": {
     "@anthropic-ai/sdk": "^0.91.1",
@@ -19,6 +21,7 @@
     "@vitest/coverage-v8": "^1.6.0",
     "axios": "^1.15.2",
     "cheerio": "^1.2.0",
+    "dotenv-cli": "^11.0.0",
     "mongodb-memory-server": "^11.0.1",
     "mongoose": "^9.5.0",
     "prettier": "^3.0.0",
@@ -27,11 +30,15 @@
     "turbo": "^2.9.6",
     "typescript": "^5.4.0",
     "vitest": "^1.6.0",
+    "voyageai": "^0.2.1",
     "zustand": "^5.0.12"
   },
   "packageManager": "pnpm@9.1.0",
   "engines": {
     "node": "20.19.0",
     "pnpm": ">=8"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2"
   }
 }
