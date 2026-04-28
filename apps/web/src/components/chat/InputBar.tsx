@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useCallback } from "react";
-import { useChatStore } from "../../store/chatStore.js";
+import { useChatStore } from "../../store/chatStore";
 
 interface InputBarProps {
   onSend: (message: string) => void;

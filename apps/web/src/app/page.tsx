@@ -1,4 +1,4 @@
-import { ChatWidget } from "../components/chat/ChatWidget.js";
+import { ChatWidget } from "../components/chat/ChatWidget";
 
 /**
  * Demo page — shows the ChatWidget embedded on a mock website.

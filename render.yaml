@@ -1,0 +1,35 @@
+# render.yaml  (project root)
+
+services:
+  - type: web
+    name: chatbot-api
+    runtime: docker
+    dockerfilePath: ./apps/api/Dockerfile
+    dockerContext: .
+    branch: main
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 4000
+      - key: MONGODB_URI
+        sync: false # you fill this in Render dashboard
+      - key: REDIS_URL
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: MARKETO_BASE_URL
+        sync: false
+      - key: MARKETO_CLIENT_ID
+        sync: false
+      - key: MARKETO_CLIENT_SECRET
+        sync: false
+      - key: PINECONE_API_KEY
+        sync: false
+      - key: PINECONE_INDEX
+        value: chatbot-knowledge
+      - key: FRONTEND_URL
+        sync: false # your Vercel URL — fill after Step 4

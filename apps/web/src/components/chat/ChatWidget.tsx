@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useCallback } from "react";
-import { useChatStore } from "../../store/chatStore.js";
-import { useChat } from "../../hooks/useChat.js";
-import { MessageList } from "./MessageList.js";
-import { InputBar } from "./InputBar.js";
+import { useChatStore } from "../../store/chatStore";
+import { useChat } from "../../hooks/useChat";
+import { MessageList } from "./MessageList";
+import { InputBar } from "./InputBar";
 
 interface ChatWidgetProps {
   websiteId: string;

@@ -1,5 +1,3 @@
-version: "3.9"
-
 # Why docker-compose for local dev?
 # Instead of running MongoDB, Redis, and your app separately,
 # one command starts everything in the right order with

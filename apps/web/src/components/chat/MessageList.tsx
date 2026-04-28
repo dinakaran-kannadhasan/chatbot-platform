@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useChatStore } from "../../store/chatStore.js";
-import { TypingIndicator } from "./TypingIndicator.js";
+import { useChatStore } from "../../store/chatStore";
+import { TypingIndicator } from "./TypingIndicator";
 
 /**
  * MessageList renders the conversation history.

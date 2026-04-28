@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useRef } from "react";
-import { useChatStore } from "../store/chatStore.js";
+import { useChatStore } from "../store/chatStore";
 import type { StreamChunk, IntentLevel } from "@chatbot/types";
 
 /**
