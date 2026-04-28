@@ -10,7 +10,7 @@ import { env } from "../config/env.js";
  */
 const isTest = env.NODE_ENV === "test";
 
-const redis = new Redis(process.env.REDIS_URL!, {
+export const redis = new Redis(process.env.REDIS_URL!, {
   lazyConnect: process.env.NODE_ENV === "test",
   maxRetriesPerRequest: null, // ← add this
   enableReadyCheck: false, // ← add this for Upstash TLS
