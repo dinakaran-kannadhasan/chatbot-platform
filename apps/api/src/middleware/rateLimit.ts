@@ -44,3 +44,10 @@ export const apiLimiter = rateLimit({
   legacyHeaders: false,
   skip: () => isTest,
 });
+
+export const rateLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  validate: false, // ← add this
+  skip: () => process.env.NODE_ENV === "test",
+});

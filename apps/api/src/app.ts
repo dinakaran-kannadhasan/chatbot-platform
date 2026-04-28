@@ -9,6 +9,7 @@ import leadRouter from "./routes/lead.routes.js";
 import tenantRouter from "./routes/tenant.routes.js";
 
 const app: Express = express();
+app.set("trust proxy", 1);
 
 app.use(helmet());
 app.use(corsMiddleware);
