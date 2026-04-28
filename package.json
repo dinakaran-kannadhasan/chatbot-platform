@@ -18,15 +18,18 @@
     "@types/supertest": "^7.2.0",
     "@vitest/coverage-v8": "^1.6.0",
     "axios": "^1.15.2",
+    "cheerio": "^1.2.0",
     "mongodb-memory-server": "^11.0.1",
     "mongoose": "^9.5.0",
     "prettier": "^3.0.0",
     "supertest": "^7.2.2",
+    "tsx": "^4.21.0",
     "turbo": "^2.0.0",
     "typescript": "^5.4.0",
     "vitest": "^1.6.0",
     "zustand": "^5.0.12"
   },
+  "packageManager": "pnpm@9.1.0",
   "engines": {
     "node": ">=20",
     "pnpm": ">=8"
