@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
-    "test": "vitest run",
+    "test": "vitest",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "lint": "turbo run lint",
