@@ -17,7 +17,10 @@ app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 app.use("/api", apiLimiter);
 
 // ─── Routes ───────────────────────────────────────────────────────────────────
-
+// In app.ts — add this before your other routes
+app.get("/health", (_req, res) => {
+  res.json({ status: "ok", timestamp: new Date().toISOString() });
+});
 app.use("/health", healthRouter);
 app.use("/api/chat", chatRouter);
 app.use("/api/leads", leadRouter);
