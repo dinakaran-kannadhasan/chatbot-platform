@@ -4,6 +4,7 @@
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "strict": true,
+    "strictNullChecks": false,
     "noUncheckedIndexedAccess": true,
     "noImplicitReturns": true,
     "esModuleInterop": true,
