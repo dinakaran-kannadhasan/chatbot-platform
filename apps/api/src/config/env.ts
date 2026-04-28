@@ -43,6 +43,7 @@ const envSchema = z.object({
 
   PINECONE_API_KEY: z.string().min(1, "PINECONE_API_KEY is required"),
   PINECONE_INDEX: z.string().default("chatbot-knowledge"),
+  VOYAGE_API_KEY: z.string().min(1, "VOYAGE_API_KEY is required"),
 
   FRONTEND_URL: z.string().url().default("http://localhost:3000"),
 });
