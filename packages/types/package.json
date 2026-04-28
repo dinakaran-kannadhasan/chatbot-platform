@@ -10,6 +10,6 @@
     }
   },
   "scripts": {
-    "build": "tsc"
+    "build": "rm -f tsconfig.tsbuildinfo && tsc --project tsconfig.json"
   }
 }
